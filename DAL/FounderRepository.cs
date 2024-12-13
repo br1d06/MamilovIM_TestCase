@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Teledok.Data;
 using Teledok.Models;
 
 namespace Teledok.DAL
 {
-	public class FounderRepository : IRepository<Founder>, IDisposable
+    public class FounderRepository : IRepository<Founder>, IDisposable
 	{
 		private readonly ApiDbContext _context; 
 

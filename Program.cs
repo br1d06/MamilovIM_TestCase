@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Teledok.Data;
+using Teledok.DAL;
 
 var builder = WebApplication.CreateBuilder(args);
 
