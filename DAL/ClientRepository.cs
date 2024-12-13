@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Teledok.Data;
 using Teledok.Models;
 
 namespace Teledok.DAL;

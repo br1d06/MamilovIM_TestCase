@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Teledok.Models;
 
-namespace Teledok.Data;
+namespace Teledok.DAL;
 
 public class ApiDbContext : DbContext
 {
@@ -10,14 +10,14 @@ public class ApiDbContext : DbContext
 
     public ApiDbContext(DbContextOptions<ApiDbContext> options) : base(options)
     {
-        
+
     }
 
-	public ApiDbContext()
-	{
-	}
+    public ApiDbContext()
+    {
+    }
 
-	protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
