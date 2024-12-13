@@ -10,18 +10,13 @@ namespace Teledok.Controllers
 
 		public ClientController()
 		{
-			_clientRepository = new ClientRepository(new Data.ApiDbContext());
+			_clientRepository = new ClientRepository(new ApiDbContext());
 		}
 
-		public void Index()
-		{
-			_clientRepository.GetList();
-		}
+		public List<Client> Index()=> (List<Client>)_clientRepository.GetList();
+		
 
-		public void Details(int clientsTaxPayerId)
-		{
-			_clientRepository.Get(clientsTaxPayerId);
-		}
+		public Task<Client> Details(int clientsTaxPayerId) => _clientRepository.Get(clientsTaxPayerId);
 
 		public void CreateClient(Client client)
 		{

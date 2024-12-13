@@ -10,18 +10,14 @@ namespace Teledok.Controllers
 
 		public FounderController()
 		{
-			_founderRepository = new FounderRepository(new Data.ApiDbContext());
+			_founderRepository = new FounderRepository(new ApiDbContext());
 		}
 
-		public void Index()
-		{
-			_founderRepository.GetList();
-		}
+		public List<Founder> Index()=>(List<Founder>)_founderRepository.GetList();
+		
 
-		public void Details(int foundersTaxPayerId)
-		{
-			_founderRepository.Get(foundersTaxPayerId);
-		}
+		public Task<Founder> Details(int foundersTaxPayerId)=>_founderRepository.Get(foundersTaxPayerId);
+		
 
 		public void CreateFounder(Founder founder)
 		{
