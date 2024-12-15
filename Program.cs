@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Teledok.DAL;
+using Teledok.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,8 @@ builder.Services.AddEntityFrameworkNpgsql().
 	(builder.Configuration.GetConnectionString("PostgresDbConnection")));
 builder.Services.AddScoped<ClientRepository>();
 builder.Services.AddScoped<FounderRepository>();
+builder.Services.AddTransient<ClientService>();
+builder.Services.AddTransient<FounderService>();
 
 var app = builder.Build();
 
