@@ -22,9 +22,9 @@ namespace Teledok.Services
 			return founder;
 		}
 
-		public async Task Delete(Founder founder)
+		public async Task Delete(int id)
 		{
-			await _founderRepository.Delete(founder.Id);
+			await _founderRepository.Delete(id);
 			await _founderRepository.SaveAsync();
 		}
 
@@ -36,14 +36,10 @@ namespace Teledok.Services
 			return founder;
 		}
 
-		public async Task<Founder> Get(Founder founder)
-		{
-			return await _founderRepository.Get(founder.Id);
-		}
+		public async Task<Founder> Get(int id) => await _founderRepository.Get(id);
+		
 
-		public List<Founder> GetList()
-		{
-			return _founderRepository.GetList();
-		}
+		public List<Founder> GetList() => _founderRepository.GetList();
+		
 	}
 }

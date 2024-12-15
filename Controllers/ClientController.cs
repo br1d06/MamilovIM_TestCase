@@ -6,7 +6,7 @@ namespace Teledok.Controllers
 {
 
 	[ApiController]
-	[Route("api/[controller]")]
+	[Route("api/[controller]/[action]")]
 	public class ClientController : ControllerBase
 	{	
 		private readonly ClientService _clientService;
@@ -15,20 +15,21 @@ namespace Teledok.Controllers
 		{
 			_clientService = clientService;
 		}
+
 		[HttpGet]
 		public List<Client> GetList() => _clientService.GetList();
+
 		[HttpPost]
-		[Route("api/[controller][action]")]
-		public Task<Client> Details(Client client) => _clientService.Get(client);
+		public Task<Client> Details(int id) => _clientService.Get(id);
+
 		[HttpPost]
-		[Route("api/[controller][action]")]
-		public async Task CreateClient(Client client) =>await _clientService.Update(client);
+		public async Task<Client> Create(Client client) => await _clientService.Update(client);
+
 		[HttpPost]
-		[Route("api/[controller][action]")]
-		public async Task DeleteClient(Client client)=> await _clientService.Delete(client);
+		public async Task Delete(int id)=> await _clientService.Delete(id);
+
 		[HttpPost]
-		[Route("api/[controller][action]")]
-		public async Task<Client> UpdateClient(Client client) 
+		public async Task<Client> Update(Client client) 
 		{
 			await _clientService.Update(client);
 

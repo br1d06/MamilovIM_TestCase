@@ -22,9 +22,9 @@ namespace Teledok.Services
 			return client;
 		}
 
-		public async Task Delete(Client client)
+		public async Task Delete(int id)
 		{
-			await _clientRepository.Delete(client.Id);
+			await _clientRepository.Delete(id);
 			await _clientRepository.SaveAsync();
 		}
 
@@ -41,9 +41,7 @@ namespace Teledok.Services
 			return _clientRepository.GetList();
 		}
 
-		public Task<Client> Get(Client client) 
-		{ 
-			return _clientRepository.Get(client.Id);
-		}
+		public async Task<Client> Get(int id) => await _clientRepository.Get(id);
+
 	}
 }

@@ -1,12 +1,12 @@
-﻿using System.Web.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Teledok.Models;
 using Teledok.Services;
 
 namespace Teledok.Controllers
 {
 	[ApiController]
-	class FounderController : Controller
+	[Route("api/[controller]/[action]")]
+	public class FounderController : Controller
 	{
 		private readonly FounderService _founderService;
 
@@ -15,23 +15,20 @@ namespace Teledok.Controllers
 			_founderService = founderService;
 		}
 
-		public List<Founder> Index()=>_founderService.GetList();
-		
-		public async Task<Founder> Details(Founder founder)=>await _founderService.Get(founder);
-		
-		public async Task<Founder> CreateFounder(Founder founder)
-		{
-			await _founderService.Create(founder);
+		[HttpGet]
+		public List<Founder> GetList()=>_founderService.GetList();
 
-			return founder;
-		}
+		[HttpPost]
+		public async Task<Founder> Details(int id) => await _founderService.Get(id);
 
-		public async Task DeleteFounder(Founder founder)
-		{
-			await _founderService.Delete(founder);
-		}
+		[HttpPost]
+		public async Task<Founder> Create(Founder founder) => await _founderService.Create(founder);
 
-		public async Task<Founder> UpdateFounder(Founder founder)
+		[HttpPost]
+		public async Task Delete(int id)=> await _founderService.Delete(id);
+
+		[HttpPost]
+		public async Task<Founder> Update(Founder founder)
 		{
 			await _founderService.Update(founder);
 

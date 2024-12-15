@@ -18,9 +18,9 @@ namespace Teledok.DAL
 			return founder;
 		}
 
-		public async Task Delete(int taxPayerId)
+		public async Task Delete(int id)
 		{
-			Founder founder = await _context.Founders.FindAsync(taxPayerId);
+			Founder founder = await _context.Founders.FindAsync(id);
 
 			if (founder != null)
 			{
@@ -28,10 +28,8 @@ namespace Teledok.DAL
 			}
 		}
 
-		public async Task<Founder> Get(int taxPayerId)
-		{
-			return await _context.Founders.FindAsync(taxPayerId);
-		}
+		public async Task<Founder> Get(int id) => await _context.Founders.FindAsync(id);
+		
 
 		public List<Founder> GetList()
 		{

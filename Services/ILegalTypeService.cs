@@ -6,8 +6,8 @@ namespace Teledok.Services
 	{
 		Task<T> Create(T item);
 		Task<T> Update(T item);
-		Task Delete(T item);
-		Task<T> Get(T item);
+		Task Delete(int id);
+		Task<T> Get(int id);
 		List<T> GetList();
 	}
 }
