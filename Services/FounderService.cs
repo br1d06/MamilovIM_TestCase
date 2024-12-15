@@ -3,7 +3,7 @@ using Teledok.Models;
 
 namespace Teledok.Services
 {
-	public class FounderService : ILegalType<Founder>
+	public class FounderService : ILegalTypeService<Founder>
 	{
 		private readonly FounderRepository _founderRepository;
 

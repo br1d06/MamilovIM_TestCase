@@ -3,7 +3,7 @@ using Teledok.Models;
 
 namespace Teledok.Services
 {
-	public class ClientService : ILegalType<Client>
+	public class ClientService : ILegalTypeService<Client>
 	{
 		private readonly ClientRepository _clientRepository;
 
