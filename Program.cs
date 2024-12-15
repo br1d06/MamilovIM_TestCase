@@ -4,9 +4,6 @@ using Teledok.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
-
 builder.Services.AddControllers();
 
 builder.Services.AddEntityFrameworkNpgsql().
@@ -16,6 +13,7 @@ builder.Services.AddScoped<ClientRepository>();
 builder.Services.AddScoped<FounderRepository>();
 builder.Services.AddTransient<ClientService>();
 builder.Services.AddTransient<FounderService>();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -29,6 +27,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseSwagger();
 
 app.UseRouting();
 
