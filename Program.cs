@@ -11,8 +11,8 @@ builder.Services.AddEntityFrameworkNpgsql().
 	(builder.Configuration.GetConnectionString("PostgresDbConnection")));
 builder.Services.AddScoped<ClientRepository>();
 builder.Services.AddScoped<FounderRepository>();
-builder.Services.AddTransient<ClientService>();
-builder.Services.AddTransient<FounderService>();
+builder.Services.AddScoped<ClientService>();
+builder.Services.AddScoped<FounderService>();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
