@@ -5,12 +5,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+
+builder.Services.AddControllers();
 
 builder.Services.AddEntityFrameworkNpgsql().
 	AddDbContext<ApiDbContext>(options => options.UseNpgsql
 	(builder.Configuration.GetConnectionString("PostgresDbConnection")));
+builder.Services.AddScoped<ClientRepository>();
+builder.Services.AddScoped<FounderRepository>();
 
 var app = builder.Build();
 
@@ -26,8 +28,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
-app.UseAuthorization();
 
 app.MapControllerRoute(
 	name: "default",

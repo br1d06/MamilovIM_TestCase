@@ -3,11 +3,11 @@
 interface IRepository<T> : IDisposable
 	where T : class
 {
-	IEnumerable<T> GetList();
+	List<T> GetList();
 	Task<T> Get(int taxPayerId); 
-	void Create(T item); 
-	void Update(T item); 
-	void Delete(int taxPayerId); 
-	void Save();  
+	T Create(T item); 
+	T Update(T item); 
+	Task Delete(int taxPayerId); 
+	Task SaveAsync();  
 }
 

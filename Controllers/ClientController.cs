@@ -1,39 +1,35 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 using Teledok.DAL;
 using Teledok.Models;
+using Teledok.Services;
 
 namespace Teledok.Controllers
 {
-	public class ClientController : Controller
-	{
-		private IRepository<Client> _clientRepository;
+	class ClientController : ApiController
+	{	
+		private readonly ClientService _clientService;
 
-		public ClientController()
+		public ClientController(ClientService clientService)
 		{
-			_clientRepository = new ClientRepository(new ApiDbContext());
+			_clientService = clientService;
 		}
 
-		public List<Client> Index()=> (List<Client>)_clientRepository.GetList();
+		public List<Client> GetList() => _clientService.GetList();
+		
+		public Task<Client> Details(Client client) => _clientService.Get(client);
+
+		public async Task CreateClient(Client client) =>await _clientService.Update(client);
 		
 
-		public Task<Client> Details(int clientsTaxPayerId) => _clientRepository.Get(clientsTaxPayerId);
+		public async Task DeleteClient(Client client)=> await _clientService.Delete(client);
+		
 
-		public void CreateClient(Client client)
+		public async Task<Client> UpdateClient(Client client) 
 		{
-			_clientRepository.Create(client);
-			_clientRepository.Save();
-		}
+			await _clientService.Update(client);
 
-		public void DeleteClient(int clientsTaxPayerId)
-		{
-			_clientRepository.Delete(clientsTaxPayerId);
-			_clientRepository.Save();
-		}
-
-		public void UpdateClient(Client client) 
-		{
-			_clientRepository.Update(client);
-			_clientRepository.Save();
+			return client;
 		}
 	}
 }

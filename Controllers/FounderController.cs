@@ -1,40 +1,42 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Teledok.DAL;
 using Teledok.Models;
+using Teledok.Services;
 
 namespace Teledok.Controllers
 {
 	public class FounderController : Controller
 	{
-		private IRepository<Founder> _founderRepository;
+		private readonly FounderService _founderService;
 
-		public FounderController()
+		public FounderController(FounderService founderService)
 		{
-			_founderRepository = new FounderRepository(new ApiDbContext());
+			_founderService = founderService;
 		}
 
-		public List<Founder> Index()=>(List<Founder>)_founderRepository.GetList();
+		public List<Founder> Index()=>_founderService.GetList();
 		
 
-		public Task<Founder> Details(int foundersTaxPayerId)=>_founderRepository.Get(foundersTaxPayerId);
+		public async Task<Founder> Details(Founder founder)=>await _founderService.Get(founder);
 		
 
-		public void CreateFounder(Founder founder)
+		public async Task<Founder> CreateFounder(Founder founder)
 		{
-			_founderRepository.Create(founder);
-			_founderRepository.Save();
+			await _founderService.Create(founder);
+
+			return founder;
 		}
 
-		public void DeleteFounder(int foundersTaxPayerId)
+		public async Task DeleteFounder(Founder founder)
 		{
-			_founderRepository.Delete(foundersTaxPayerId);
-			_founderRepository.Save();
+			await _founderService.Delete(founder);
 		}
 
-		public void UpdateFounder(Founder founder)
+		public async Task<Founder> UpdateFounder(Founder founder)
 		{
-			_founderRepository.Update(founder);
-			_founderRepository.Save();
+			await _founderService.Update(founder);
+
+			return founder;
 		}
 	}
 }

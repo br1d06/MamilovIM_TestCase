@@ -1,12 +1,24 @@
 ﻿namespace Teledok.Models;
 public class Client : BaseEntity
 {
-	public Client() 
+	public string Name { get; private set; }
+	public ICollection<Founder> Founders { get; private set; }
+
+	public Client(string taxpayerNumber, string name, ICollection<Founder> founders) : base(taxpayerNumber)
 	{
-		Founders = new HashSet<Founder>();
+		Name = name;
+		Founders = founders;
 	}
-	public string Name { get; set; }
-	public bool IsLegalEntity { get; set; }
-	public virtual ICollection<Founder> Founders { get; set; }
+
+	public Client() { }
+
+	public void FullUpdate(string taxpayerNumber, string name, ICollection<Founder> founders)
+	{
+		Name = name;
+		Founders = founders;
+		UpdateTaxpayerNumber(taxpayerNumber);
+	}
+
+	public void NameUpdate(string newName)=> Name = newName;
 }
 

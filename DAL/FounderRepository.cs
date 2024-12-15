@@ -3,7 +3,7 @@ using Teledok.Models;
 
 namespace Teledok.DAL
 {
-    public class FounderRepository : IRepository<Founder>, IDisposable
+    public class FounderRepository : IRepository<Founder>
 	{
 		private readonly ApiDbContext _context; 
 
@@ -11,15 +11,14 @@ namespace Teledok.DAL
 		{
 			_context = context;
 		}
-		public void Create(Founder founder)
+		public Founder Create(Founder founder)
 		{
-			founder.DateAdded = DateTime.UtcNow;
-			founder.DateUpdated = DateTime.UtcNow;
-
 			_context.Founders.Add(founder);
+
+			return founder;
 		}
 
-		public async void Delete(int taxPayerId)
+		public async Task Delete(int taxPayerId)
 		{
 			Founder founder = await _context.Founders.FindAsync(taxPayerId);
 
@@ -34,23 +33,23 @@ namespace Teledok.DAL
 			return await _context.Founders.FindAsync(taxPayerId);
 		}
 
-		public IEnumerable<Founder> GetList()
+		public List<Founder> GetList()
 		{
 			return _context.Founders.ToList();
 		}
 
-		public async void Save()
+		public async Task SaveAsync()
 		{
 			await _context.SaveChangesAsync();
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public void Update(Founder founder)
+		public Founder Update(Founder founder)
 		{
-			founder.DateUpdated= DateTime.UtcNow;
-
 			_context.Founders.Update(founder);
+
+			return founder;
 		}
 
 		private bool _disposed = false;

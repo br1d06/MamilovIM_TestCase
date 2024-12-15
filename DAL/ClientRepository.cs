@@ -3,7 +3,7 @@ using Teledok.Models;
 
 namespace Teledok.DAL;
 
-public class ClientRepository : IRepository<Client>, IDisposable
+public class ClientRepository : IRepository<Client>
 {
 	private readonly ApiDbContext _context;
 
@@ -12,17 +12,15 @@ public class ClientRepository : IRepository<Client>, IDisposable
 		_context = context;
 	}
 
-	public void Create(Client client)
+	public Client Create(Client client)
 	{
-		client.DateAdded = DateTime.UtcNow;
-		client.DateUpdated = DateTime.UtcNow;
-
 		_context.Clients.Add(client);
+		return client;
 	}
 
-	public async void Delete(int taxPayerId)
+	public async Task Delete(int id)
 	{
-		Client client = await _context.Clients.FindAsync(taxPayerId);
+		Client client = await _context.Clients.FindAsync(id);
 
 		if (client != null)
 		{
@@ -30,27 +28,27 @@ public class ClientRepository : IRepository<Client>, IDisposable
 		}
 	}
 
-	public async Task<Client> Get(int taxPayerId)
+	public async Task<Client> Get(int id)
 	{
-		return await _context.Clients.FindAsync(taxPayerId);
+		return await _context.Clients.FindAsync(id);
 	}
 
-	public IEnumerable<Client> GetList()
+	public List<Client> GetList()
 	{
 		return _context.Clients.ToList();
 	}
 
-	public async void Save()
+	public Task SaveAsync()
 	{
-		await _context.SaveChangesAsync();
+		return _context.SaveChangesAsync();
 	}
 
-	[HttpPost]
-	[ValidateAntiForgeryToken]
-	public void Update(Client client)
+	public Client Update(Client client)
 	{
-		client.DateUpdated = DateTime.UtcNow;
 		_context.Clients.Update(client);
+
+		return client;
+
 	}
 	private bool _disposed = false;
 	protected virtual void Dispose(bool disposing)
@@ -70,5 +68,6 @@ public class ClientRepository : IRepository<Client>, IDisposable
 		Dispose(true);
 		GC.SuppressFinalize(this);
 	}
+
 }
 
