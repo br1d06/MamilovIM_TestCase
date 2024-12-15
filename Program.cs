@@ -28,11 +28,19 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseSwagger();
+if (builder.Environment.IsDevelopment())
+{
+	app.UseSwaggerUI(options => // UseSwaggerUI is called only in Development.
+	{
+		options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+		options.RoutePrefix = string.Empty;
+	});
+}
 
 app.UseRouting();
 
 app.MapControllerRoute(
 	name: "default",
-	pattern: "{controller=Home}/{action=Index}/{id?}");
+	pattern: "{controller}/{action}");
 
 app.Run();

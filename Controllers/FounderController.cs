@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Teledok.DAL;
+﻿using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 using Teledok.Models;
 using Teledok.Services;
 
 namespace Teledok.Controllers
 {
-	public class FounderController : Controller
+	[ApiController]
+	class FounderController : Controller
 	{
 		private readonly FounderService _founderService;
 
@@ -16,10 +17,8 @@ namespace Teledok.Controllers
 
 		public List<Founder> Index()=>_founderService.GetList();
 		
-
 		public async Task<Founder> Details(Founder founder)=>await _founderService.Get(founder);
 		
-
 		public async Task<Founder> CreateFounder(Founder founder)
 		{
 			await _founderService.Create(founder);

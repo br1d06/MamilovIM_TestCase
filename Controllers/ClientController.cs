@@ -1,12 +1,13 @@
-﻿using System.Web.Http;
-using Microsoft.AspNetCore.Mvc;
-using Teledok.DAL;
+﻿using Microsoft.AspNetCore.Mvc;
 using Teledok.Models;
 using Teledok.Services;
 
 namespace Teledok.Controllers
 {
-	class ClientController : ApiController
+
+	[ApiController]
+	[Route("api/[controller]")]
+	public class ClientController : ControllerBase
 	{	
 		private readonly ClientService _clientService;
 
@@ -14,17 +15,19 @@ namespace Teledok.Controllers
 		{
 			_clientService = clientService;
 		}
-
+		[HttpGet]
 		public List<Client> GetList() => _clientService.GetList();
-		
+		[HttpPost]
+		[Route("api/[controller][action]")]
 		public Task<Client> Details(Client client) => _clientService.Get(client);
-
+		[HttpPost]
+		[Route("api/[controller][action]")]
 		public async Task CreateClient(Client client) =>await _clientService.Update(client);
-		
-
+		[HttpPost]
+		[Route("api/[controller][action]")]
 		public async Task DeleteClient(Client client)=> await _clientService.Delete(client);
-		
-
+		[HttpPost]
+		[Route("api/[controller][action]")]
 		public async Task<Client> UpdateClient(Client client) 
 		{
 			await _clientService.Update(client);
